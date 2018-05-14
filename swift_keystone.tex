@@ -102,10 +102,14 @@
 \section{Keystone Federation}
 \begin{frame}
     \frametitle{Why Keystone Federation?}
+    \begin{itemize}
+
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
     \frametitle{How it works}
+    TODO: find diagram
 \end{frame}
 
 \begin{frame}
@@ -121,6 +125,24 @@
 \includegraphics[width=.775\textwidth]{swift-federation-false.png}
 \end{frame}
 
+\begin{frame}
+\frametitle{Pros/Cons of False Federation}
+\begin{columns}[T]
+    \begin{column}{.48\textwidth}
+        Advantages:
+        \begin{itemize}
+            \item Simple to setup
+        \end{itemize}
+    \end{column}
+    \begin{column}{.48\textwidth}
+        Disadvantages:
+        \begin{itemize}
+            \item Duplicate Identity with no sharing
+        \end{itemize}
+    \end{column}
+\end{columns}
+\end{frame}
+
 \subsection{Separate Swift Clusters}
 \begin{frame}
 \frametitle{Separate Swift Clusters}
@@ -128,11 +150,47 @@
 \includegraphics[width=.775\textwidth]{swift-federation-sep-container-sync.png}
 \end{frame}
 
+\begin{frame}
+\frametitle{Pros/Cons of Separate Clusters}
+\begin{columns}[T]
+    \begin{column}{.48\textwidth}
+        Advantages:
+        \begin{itemize}
+            \item Data isolation
+        \end{itemize}
+    \end{column}
+    \begin{column}{.48\textwidth}
+        Disadvantages:
+        \begin{itemize}
+            \item Complexity
+        \end{itemize}
+    \end{column}
+\end{columns}
+\end{frame}
+
 \subsection{Global Swift Cluster}
 \begin{frame}
 \frametitle{Global Swift Cluster}
 \centering
 \includegraphics[width=.775\textwidth]{swift-federation-global.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Pros/Cons of Separate Clusters}
+\begin{columns}[T]
+    \begin{column}{.48\textwidth}
+        Advantages:
+        \begin{itemize}
+            \item Only maintain single swift cluster
+        \end{itemize}
+    \end{column}
+    \begin{column}{.48\textwidth}
+        Disadvantages:
+        \begin{itemize}
+            \item Data shared
+        \end{itemize}
+    \end{column}
+\end{columns}
 \end{frame}
 
 \section{More Information}
