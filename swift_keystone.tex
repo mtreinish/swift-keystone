@@ -102,18 +102,26 @@
 \section{Keystone Federation}
 \begin{frame}
     \frametitle{Why Keystone Federation?}
+    \begin{columns}
+    \begin{column}{.48\textwidth}
     \begin{itemize}
-        \item Enable sharing of resources between multiple deployments
+        \item Decouple OpenStack services and identity management
+        \item Enable sharing of resources between multiple OpenStack deployments
+        \item Can use an external identity provider or keystone to keystone
     \end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{How it works}
-    TODO: find diagram for this
+    \end{column}
+    \begin{column}{.48\textwidth}
+        \includegraphics[width=.85\textwidth]{keystone-federation.png}
+    \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
     \frametitle{Keystone with Swift}
+    \begin{itemize}
+        \item Swift supports multiple auth types
+        \item Leverages authtoken and keystoneauth middleware for swift to use keystone for auth
+    \end{itemize}
 \end{frame}
 
 \section{Deployment Models}
@@ -138,6 +146,8 @@
         Disadvantages:
         \begin{itemize}
             \item Duplicate Identity with no sharing
+            \item Potential High latency
+            \item Needs keystoneauth patches to work
         \end{itemize}
     \end{column}
 \end{columns}
@@ -156,13 +166,16 @@
     \begin{column}{.48\textwidth}
         Advantages:
         \begin{itemize}
-            \item Data isolation
+            \item Resource isolation
+            \item Offers a great deal of deployment flexibility
+            \item Low swift auth latency (swift only talks to local keystone)
         \end{itemize}
     \end{column}
     \begin{column}{.48\textwidth}
         Disadvantages:
         \begin{itemize}
-            \item Complexity
+            \item Complexity of configuration
+            \item Double mapping (idp -> keystone, keystone->swift)
         \end{itemize}
     \end{column}
 \end{columns}
@@ -182,12 +195,14 @@
         Advantages:
         \begin{itemize}
             \item Only maintain single swift cluster
+            \item Low swift auth latency (swift only talks to local keystone)
         \end{itemize}
     \end{column}
     \begin{column}{.48\textwidth}
         Disadvantages:
         \begin{itemize}
-            \item Data shared
+            \item Complex configuration
+            \item Double mapping (idp -> keystone, keystone->swift)
         \end{itemize}
     \end{column}
 \end{columns}
@@ -200,6 +215,7 @@
         \item Blog Post Series: \href{https://oliver.net.au/?p=335}{https://oliver.net.au/?p=335}
         \item openstack-dev ML: \href{mailto:openstack-dev@lists.openstack.org}{openstack-dev@lists.openstack.org}
         \item Details on Keystone Federation: \href{http://www.gazlene.net/demystifying-keystone-federation.html}{http://www.gazlene.net/demystifying-keystone-federation.html}
+        \item Keystone federation mapping documentation: \href{https://docs.openstack.org/keystone/pike/advanced-topics/federation/mapping\_combinations.html}{https://docs.openstack.org/keystone/pike/advanced-topics/federation/mapping\_combinations.html}
         \item These Slides: \href{https://github.com/mtreinish/swift-keystone}{https://github.com/mtreinish/swift-keystone}
    \end{itemize}
 \end{frame}
