@@ -17,6 +17,7 @@
 \usepackage{color}
 \usepackage{amsmath}
 \usepackage{tikz}
+\usepackage{amssymb}
 \newcommand\RBox[1]{%
   \tikz\node[draw,rounded corners,align=center,] {#1};%
 }
@@ -119,7 +120,9 @@
 \begin{frame}
     \frametitle{Keystone with Swift}
     \begin{itemize}
-        \item Swift supports multiple auth types
+        \item Swift is an end-to-end object storage solution
+        \item Supports multiple auth middlewares
+        \item Differentiate each auth middleware by different reseller prefixes
         \item Leverages authtoken and keystoneauth middleware for swift to use keystone for auth
     \end{itemize}
 \end{frame}
@@ -131,6 +134,13 @@
 \frametitle{False Federation}
 \centering
 \includegraphics[width=.775\textwidth]{swift-federation-false.png}
+\end{frame}
+
+\subsection{False Federation Pipeline}
+\begin{frame}
+\frametitle{False Federation Pipeline}
+\centering
+\includegraphics[width=.775\textwidth]{swift-federation-false-pipeline.png}
 \end{frame}
 
 \begin{frame}
@@ -145,7 +155,7 @@
     \begin{column}{.48\textwidth}
         Disadvantages:
         \begin{itemize}
-            \item Duplicate Identity with no sharing
+            \item Each authtoken middleware will attempt to auth the token
             \item Potential High latency
             \item Needs keystoneauth patches to work
         \end{itemize}
@@ -175,7 +185,8 @@
         Disadvantages:
         \begin{itemize}
             \item Complexity of configuration
-            \item Double mapping (idp -> keystone, keystone->swift)
+            \item Double mapping (idp $\leftrightarrow$ keystone, keystone $\leftrightarrow$ swift)
+            \item Container sync latency (waiting for container sync to sync the objects)
         \end{itemize}
     \end{column}
 \end{columns}
@@ -189,20 +200,21 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Pros/Cons of Separate Clusters}
+\frametitle{Pros/Cons of Global Swift Cluster}
 \begin{columns}[T]
     \begin{column}{.48\textwidth}
         Advantages:
         \begin{itemize}
             \item Only maintain single swift cluster
             \item Low swift auth latency (swift only talks to local keystone)
+            \item Access to same set of objects from any service provider
         \end{itemize}
     \end{column}
     \begin{column}{.48\textwidth}
         Disadvantages:
         \begin{itemize}
             \item Complex configuration
-            \item Double mapping (idp -> keystone, keystone->swift)
+            \item Double mapping (idp $\leftrightarrow$ keystone, keystone $\leftrightarrow$ swift)
         \end{itemize}
     \end{column}
 \end{columns}
